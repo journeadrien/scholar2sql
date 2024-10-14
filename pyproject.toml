@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scholar2sql"
+authors = [
+    {name = "Adrien Journe", email = "adrien.journe@protonmail.ch"}
+]
+description = "package description"
+version = "0.0.1"
+readme = "README.md"
+dependencies = [
+	"openpyxl",
+    "httpx",
+    "tenacity",
+    "beautifulsoup4",
+    "biopython",
+    "lxml",
+    "scholarag",
+    "scholaretl",
+    "langchain_community",
+    "langchain_openai",
+    "langchain",
+    "mysql-connector-python",
+    "aenum",
+    "bm25s",
+    "PyStemmer"
+]
+requires-python = ">=3.7"
+
+[project.scripts]
+s2s_load_settings = "scholar2sql.scripts.load_settings:main"
+s2s_reset_sql_table = "scholar2sql.scripts.reset_sql_table:main"
+s2s_run = "scholar2sql.scripts.run:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false

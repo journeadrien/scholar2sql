@@ -1,0 +1,190 @@
+# SQL config required host (localhost if local), username,password, database and table
+# table will be created and fill.
+sql_database:
+  host: localhost
+  username: root
+  password: root
+  database: channelpedia
+  table: test
+
+# Logging config
+logging:
+  level: debug # choose between [debug, info, warn, error]
+  external_packages: error
+
+# scholar_search config
+scholar_search:
+  top_sections_per_article: 10 # For each article, select the top_k_section based on bm25 algorithm 
+  email: your_email # Required for pubmed and unpaywall API
+  # Pubmed config
+  pubmed:
+    top_k_article_per_search: 200 # For each pubmed search, select the top_k_article (pubmed sort by relevancy).
+    api_key: your_api_key #A PI key for pubmed to get it: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
+    additional_search_keywords: "" # Keywords including in the pubmed search with inputs (ex: "AND (proteins OR sodium)")
+    #tmp_pmc_folder: # Where pubmed central xml will be stored (default: tmp/pmc)
+    #tmp_abstract_folder:  # Where abstract from pubmed will be stored (default: tmp/tmp_abstract_folder)
+  # Grobid config
+  grobid:
+    url: "http://localhost:8070"
+    #tmp_pdf_folder: #Where pdf will be stored (default: tmp/pdf)
+    #tmp_tei_folder: #Where tei (grobid format) will be stored (default: tmp/tei)
+
+# Openai config
+openai:
+  model: gpt-4o-mini # choose you model name
+  token: your_api_key # Enter you api key
+  verbose: False #If set to true, you will see the full prompt sent to openai
+
+data_processing:
+  overwrite_existing: False # To avoid recomputing (saving money for openai) it will look if a corresponding record is in the database.
+
+# Prompt config (where the real work for you is) it will fill the prompt template in file: schlar2sql.llm.prompt
+prompt:
+  # Finish the sentence: 'The goal is ' defining the goal of this litterature search review.
+  research_goal: "to get the overall effect of particual drug on a specific ion channel as well as a article summary."
+  # If you have any information you don't want to take into account
+  information_to_exclude: " Discard any information about channel mutants, complex mouse model or high level effect."
+  # First step is to define the question you are interested in it.
+  research_question: "What is the overall effect of {drug} on {ion_channel}?" # field in between {} are inputs/elements_of_interest name
+  # input_parameters of interests (drugs, proteins, compound etc...), You can have as many inputs, 
+  # it will loop (all possible combination of the values).
+  input_parameters: 
+    - name: ion_channel #name (needs to be in question)
+      description: "" # description will be add to the prompt
+      max_length: 10 # Size is the number of character usefull to set SQL type
+      value: # List all inputs value
+        - name: "kv1.1" # main name
+          pubmed_alias: '["kv 1.1", "kcna1", "kcpvd"]' # alias that will be add along the name for pubmed search
+          llm_aliases: '["kcna1"]' # alias that will be add along the name for llm extracting
+        - name: "kv1.2"
+          pubmed_alias: '["kv 1.2", "kcna2"]'
+          llm_aliases: '["kcna2"]'
+    - name: drug 
+      max_length: 20
+      description: ""
+      value: 
+        - name: "lidocaine"
+          pubmed_alias: ""
+          llm_alias: ""
+  # output_features correspond to the features you want to extract
+  output_features:
+    - name: section_analysis
+      description: "Analysis of each section and the relevancy related the question."
+      data_type: dict # need for assessing SQL type
+      required: False # whether the field is required in the llm output
+      multiple_values: False # whether it is expecting a list of the type defined
+    - name: sufficient_sections
+      description: "Sufficient section ID that will be used for the next field 'effect'"
+      data_type: int
+      required: False
+      multiple_values: True
+    - name: effect
+      description: "The overall effect"
+      data_type: str
+      max_length: 5
+      required: False
+      multiple_values: False
+      allowed_values: #if the output can only be within a list of choices
+        - name: not_reported #name
+          alias: NR #alias, llm will return that value
+          description: "Not reported or too little information" # the meaning of the field
+        - name: close
+          alias: CLOSE
+          description: "close"
+        - name: open
+          alias: OPEN
+          description: "open"
+    - name: dose_response
+      description: "All doses/concentrations and corresponding responses/effects if found as well as IC50 or EC50 reported, but ONLY for the specific drug and channel"
+      data_type: str
+      max_length: 255
+      required: True
+      multiple_values: False
+    - name: study_type
+      description: "Type of testing reported"
+      data_type: str
+      max_length: 6
+      required: True
+      multiple_values: True
+      allowed_values:
+        - name: cell
+          alias: CELL
+          description: "in lab cell study"
+        - name: animal
+          alias: ANIMAL
+          description: "in lab living animal study"
+        - name: human
+          alias: HUMAN
+          description: "clinical study"
+        - name: silico
+          alias: SILICO
+          description: "computational study"
+    - name: subject
+      description: "Cell-line / species / mouse model name / human characteristic, subject to the drug testing"
+      data_type: str
+      max_length: 255
+      required: True
+      multiple_values: False
+  # Example are usefull to give guiderails, by giving complex example you can tell the model how to behave
+  examples: #it needs to follow the output
+    - input_parameters:
+        ion_channel: "kv2.1 (a.k.a Kcnb1)"
+        drug: "valpiricol"
+      sections: # To mock a article, fill the sections like a dictionary.
+        section 1: "CHO cells treated with valpiricol show a reduction in the kv2.1 potassium current with an IC_50 of 5uM."
+        section 2: "Valpiricol at high dose has a strong inhibitory effect on Cav2.1 generated."
+        section 3: "Neuro2a cells in culture are treated for 24h with metabol and recorded with manual patch clamp with extracellular solution, revealing an antagonist effect of the drug on kv2.1."
+        section 4: "The drug valpiricol at 1ug/ml inactivates by 70% Kcnb1 activity in culture cells."
+      output_features:
+        section_analysis:
+          section 1: "Valpiricol reduces/blocks kv2.1 potassium current, so CLOSE effect. (sufficient)"
+          section 2: "Valpiricol blocks Cav2.1, but it does not concern the channel of interest, kv2.1. (irrelevant)"
+          section 3: "Kv2.1 is affected by metabol, but it does not concern the drug of interest, valpiricol. (irrelevant)"
+          section 4: "Valpiricol inactivates kv2.1 (a.k.a Kcnb1) activity, so CLOSE effect. (sufficient)"
+        sufficient_sections: [1, 4]
+        effect: "CLOSE"
+        dose_response: "5µM -> Ic_50 | 1µg/ml -> 70%"
+        study_type: ["CELL"]
+        subject: "CHO cells"
+    - input_parameters:
+        ion_channel: "Cav2.2 (a.k.a Cacna1b)"
+        drug: "grandolimus (GRD)"
+      sections:
+        section 1: "GRD is a first-in-class drug that enhances neuronal excitability through the activation of voltage-gated Cav2.2 calcium channels."
+        section 2: "Grandolimus is tested in comparison with some other synthetic compound on Cav2.2 kinetic activity. We observed that among all drugs tested, compound CX_109 has the strongest effect on the Cav2.2 activation."
+        section 3: "Cav2.2-R234H mutant, that is associated with common cardiac channelopathies, is recorded by automated patch-clamp in MEF cells and present reduce kinetic response when grandolimus is applied on intracellular solution."
+      output_features:
+        section_analysis:
+          section 1: "Grandolimus activates Cav2.2, so OPEN effect. (sufficient)"
+          section 2: "While CX_109 has an effect on Cav2.2, it is not said for grandolimus. (irrelevant)"
+          section 3: "Grandolimus reduced activation of a mutant/modified form of Cav2.2, indicating a CLOSE effect. However mutants shouldn't be taken into consideration and there is no information on normal Cav2.2. (insufficient)"
+        sufficient_sections: [1]
+        effect: "OPEN"
+        dose_response: "5µM -> Ic_50 | 1µg/ml -> 70%"
+        study_type: ["ANIMAL"]
+        subject: "Cav2.2-R234H mutant"
+    - input_parameters:
+        ion_channel: "Nav1.1 (a.k.a Scn1a)"
+        drug: "myrtigan"
+      sections:
+        section 1: "When all the different drugs were applied on the rat brain slices for 10 minutes, Nav1.1 was blocked by 50%."
+        section 2: "Nav1.1-/- KO mice were injected every day for one week with 5mg/kg myrtigan and recorded for NaV current. The knock-out mice showed reduction in sodium current compared with the WT mice after only 2 days of injection."
+        section 3: "Epileptic seizures in a model of Nav1.1 related ataxia are reduced upon application of a daily dose of Myrtigan to the water of animals."
+        section 4: "In Nav1.1 KO mice, Myrtigan inhibits the synchronous discharges of a network of neurons."
+        section 5: "Myrtigan inhibited luminozine-induced activation of Scn1a in mammalian cells maintained in 10% humidity and hypoxic conditions."
+        section 6: "The M current mediated by the Nav family (Nav1-Nav2) of voltage-gated potassium channels is positively regulated in peripheral sensory nociceptors by physiological concentration of myrtigan."
+        section 7: "In patch clamp p8 AAB cell, Myrtigan binding to Nav1.1 subunits is faster than to the other α-subunits. Myrtigan unbinding from the α-subunits is slower than that of carbamazepine and phenytoin."
+      output_features:
+        section_analysis:
+          section 1: "No mention of any specific drug. (irrelevant)"
+          section 2: "KO (knock-out) or  -/-  mean that Nav1.1 is absent, so the effect of the drug can't be due to Nav1.1. (insufficient)"
+          section 3: "Myrtigan reduces seizure frequency, that is a disease’s symptom, that is not specific enough to conclude that the effect is directly linked to Nav1.1 channel. (insufficient)"
+          section 4: "Myrtigan inhibits synchronous discharge, that is an overall effect not specific enough to conclude that it is directly linked to Nav1.1 channel. Also it is about Nav1.1 KO model where Nav1.1 is absent. (insufficient)"
+          section 5: "Myrtigan inhibits luminozine activation of Nav1.1 (a.k.a Scn1a), that is an indirect effect of Myrtigan on Nav1.1. (irrelevant)"
+          section 6: "While myrtigan has an effect on the Nav family, it is not said specifically for Nav1.1. (irrelevant)"
+          section 7: "Faster binding is not enough to conclude the overall activation effect. (insufficient)"   
+        sufficient_sections: []
+        effect: "NR"
+        dose_response: "5mg/kg -> NR"
+        study_type: ["ANIMAL", "CELL"]
+        subject: "Nav1.1-/- KO mice | p8 AAB cell"
