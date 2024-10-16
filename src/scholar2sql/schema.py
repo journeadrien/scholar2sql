@@ -25,7 +25,7 @@ class SchemaEnum(BaseModel):
     """
     name: str
     alias: str
-    description: str
+    description: str = ""
 
 class SchemaItem(BaseModel):
     """
@@ -94,7 +94,7 @@ class SchemaOutputFeature(SchemaMetadata):
     """
     Represents output schema with additional properties.
     """
-    description: str
+    description: str = ""
     required: bool = True
     multiple_values: bool = False # Corrected typo
     allowed_values: Optional[List[SchemaEnum]] = None

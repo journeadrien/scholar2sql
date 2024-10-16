@@ -1,13 +1,32 @@
 # scholar2sql
 
-scholar2sql is a Python package that extracts structured features from scholarly papers and stores them in a SQL table. This tool is designed to automate the process of literature review by parsing academic papers, extracting relevant information, and organizing it in a structured format.
+scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. This package offers two key advantages: automated literature review processing (parsing, extraction, and structured organization of key information) and generalized <b>literature screening</b> through customizable <i>input parameters</i> broadening the scope of your research question.
 
-## Features
 
-- Searches and retrieves scholarly articles from PubMed
-- Processes PDFs using GROBID
-- Extracts structured information using OpenAI's language models
-- Stores extracted data in a SQL database
+
+## Concept
+
+### 1- <u>Human-like</u> literature review:
+<details open>
+    <summary>colapse</summary>
+    <figure markdown>
+        <IMG src="images/literature_search.png"  alt="Manual literature search" style="width:100%"/>
+        <br/><br/>
+        <figcaption>Scholar2sql mimics human research methods by: (1) querying Pubmed to find relevant papers, and (2) analyzing each paper individually to extract key features.</figcaption>
+    </figure>
+</details>
+<br/><br/>
+
+### 2- <u>Screening</u> literature review:
+<details open>
+    <summary>colapse</summary>
+    <figure markdown>
+        <IMG src="images/screening_literature_review.png"  alt="Manual literature search" style="width:50%"/>
+        <br/><br/>
+        <figcaption>Once you devined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
+    </figure>
+</details>
+<br/><br/>
 
 ## Installation
 

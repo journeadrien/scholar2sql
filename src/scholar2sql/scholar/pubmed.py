@@ -38,7 +38,7 @@ class PubMedAPIWrapper(BaseModel):
 
     api_key: str = ""
     email: str = ""
-    top_articles_per_search: int = 100
+    top_articles_per_search: int = 10
     additional_search_keywords: str = ""
     tmp_pmc_folder: Path = Path("tmp/pmc")
     tmp_abstract_folder: Path = Path("tmp/abstract")
