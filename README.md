@@ -2,7 +2,7 @@
 
 scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. This package offers two key advantages: automated literature review processing (parsing, extraction, and structured organization of key information) and generalized <b>literature screening</b> through customizable <i>input parameters</i> broadening the scope of your research question.
 
-
+This tool was used for the creation of the sql table the drug screening literature search on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). You can find the config file in this repo in the examples folder.
 
 ## Concept
 
@@ -11,7 +11,7 @@ scholar2sql streamlines literature reviews by automatically extracting structure
     <summary>colapse</summary>
     <figure markdown>
         <IMG src="images/human_like_literature_review.png"  alt="literature search" style="width:100%"/>
-        <br/>
+        <br/><br/>
         <figcaption>Scholar2sql mimics human research methods by: (1) querying Pubmed to find relevant papers, and (2) analyzing each paper individually to extract key features.</figcaption>
     </figure>
 </details>
@@ -22,7 +22,7 @@ scholar2sql streamlines literature reviews by automatically extracting structure
     <summary>colapse</summary>
     <figure markdown>
         <IMG src="images/screening_literature_review.png"  alt="Manual literature search" style="width:100%"/>
-        <br/>
+        <br/><br/>
         <figcaption>Once you devined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
     </figure>
 </details>
@@ -31,7 +31,7 @@ scholar2sql streamlines literature reviews by automatically extracting structure
 ## Installation
 
 ```
-git clone
+git clone https://github.com/journeadrien/scholar2sql.git
 pip install .
 ```
 
@@ -41,15 +41,15 @@ pip install .
 2. try loading the config and resolve validation error
 
 ```bash
-s2s_load_settings path_config.yaml # s2s_load_settings template/ic_drug.yaml
+s2s_load_settings path_to_config.yaml # s2s_load_settings template/ic_drug.yaml
 ```
 3. reset sql talbe
 ```bash
-s2s_reset_sql_table path_config.yaml # s2s_reset_sql_table template/ic_drug.yaml
+s2s_reset_sql_table path_to_config.yaml # s2s_reset_sql_table template/ic_drug.yaml
 ```
 4. run
 ```bash
-s2s_run path_config.yaml # s2s_run template/ic_drug.yaml
+s2s_run path_to_config.yaml # s2s_run template/ic_drug.yaml
 ```
 ## Configuration
 
