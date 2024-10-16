@@ -10,23 +10,23 @@ scholar2sql streamlines literature reviews by automatically extracting structure
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/literature_search.png"  alt="Manual literature search" style="width:100%"/>
-        <br/><br/>
+        <IMG src="images/human_like_literature_review.png"  alt="literature search" style="width:100%"/>
+        <br/>
         <figcaption>Scholar2sql mimics human research methods by: (1) querying Pubmed to find relevant papers, and (2) analyzing each paper individually to extract key features.</figcaption>
     </figure>
 </details>
-<br/><br/>
+<br/>
 
 ### 2- <u>Screening</u> literature review:
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/screening_literature_review.png"  alt="Manual literature search" style="width:50%"/>
-        <br/><br/>
+        <IMG src="images/screening_literature_review.png"  alt="Manual literature search" style="width:100%"/>
+        <br/>
         <figcaption>Once you devined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
     </figure>
 </details>
-<br/><br/>
+<br/>
 
 ## Installation
 
