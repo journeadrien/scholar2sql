@@ -176,8 +176,3 @@ Provide examples to guide the LLM's behavior. Each example should include:
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-```
-
-This README.md provides a comprehensive overview of the scholar2sql package, including its features, installation instructions, usage guidelines, and a detailed explanation of the configuration file structure. It also includes information on how to contribute to the project and the license under which it is distributed.
