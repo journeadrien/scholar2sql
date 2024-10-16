@@ -67,49 +67,50 @@ The package requires a YAML configuration file to specify various settings. Belo
 
 ### Logging Configuration
 
-| Field             | Description                                     | Options                    |
-|-------------------|-------------------------------------------------|----------------------------|
-| level             | Logging level for the main package              | debug, info, warn, error   |
-| external_packages | Logging level for external packages             | debug, info, warn, error   |
+| Field             | Description                         | Options                  | Default |
+|-------------------|-------------------------------------|--------------------------|---------|
+| level             | Logging level for the main package  | debug, info, warn, error | info    |
+| external_packages | Logging level for external packages | debug, info, warn, error | error   |
 
 ### Scholar Search Configuration
 
-| Field                      | Description                                              | Required |
-|----------------------------|----------------------------------------------------------|----------|
-| top_sections_per_article   | Number of top sections to select per article using BM25  | Yes      |
-| email                      | Email for PubMed and Unpaywall API                       | Yes      |
+| Field                    | Description                                             | Required | Default |
+|--------------------------|---------------------------------------------------------|----------|---------|
+| top_sections_per_article | Number of top sections to select per article using BM25 | No       | 5       |
+| email                    | Email for PubMed and Unpaywall API                      | Yes      |         |
 
 #### PubMed Configuration
 
-| Field                       | Description                                              | Required |
-|-----------------------------|----------------------------------------------------------|----------|
-| top_k_article_per_search    | Number of top articles to select per PubMed search       | Yes      |
-| api_key                     | PubMed API key                                           | Yes      |
-| additional_search_keywords  | Additional keywords to include in PubMed search          | No       |
-| tmp_pmc_folder              | Folder to store PubMed Central XML files                 | No       |
-| tmp_abstract_folder         | Folder to store abstracts from PubMed                    | No       |
+| Field                      | Description                                        | Required | Default      |
+|----------------------------|----------------------------------------------------|----------|--------------|
+| top_k_article_per_search   | Number of top articles to select per PubMed search | No       | 10           |
+| api_key                    | PubMed API key                                     | No       | ""           |
+| additional_search_keywords | Additional keywords to include in PubMed search    | No       | ""           |
+| tmp_pmc_folder             | Folder to store PubMed Central XML files           | No       | tmp/pmc      |
+| tmp_abstract_folder        | Folder to store abstracts from PubMed              | No       | tmp/abstract |
 
 #### GROBID Configuration
 
-| Field           | Description                                   | Required |
-|-----------------|-----------------------------------------------|----------|
-| url             | URL of the GROBID service                     | Yes      |
-| tmp_pdf_folder  | Folder to store downloaded PDF files          | No       |
-| tmp_tei_folder  | Folder to store TEI files (GROBID format)     | No       |
+| Field          | Description                                | Required | Default |
+|----------------|--------------------------------------------|----------|---------|
+| url            | URL of the GROBID service                  | Yes      |         |
+| tmp_pdf_folder | Folder to store downloaded PDF files       | No       | tmp/pdf |
+| tmp_tei_folder | Folder to store TEI files (GROBID format)  | No       | tmp/tei |
 
 ### OpenAI Configuration
 
-| Field    | Description                               | Required |
-|----------|-------------------------------------------|----------|
-| model    | Name of the OpenAI model to use           | Yes      |
-| token    | OpenAI API key                            | Yes      |
-| verbose  | Whether to display full prompts           | No       |
+| Field       | Description                               | Required | Default    |
+|-------------|-------------------------------------------|----------|------------|
+| token       | OpenAI API key                            | Yes      |            |
+| model       | Name of the OpenAI model to use           | No       | gpt-o-mini |
+| temperature | OpenAI API key                            | No       | 0.         |
+| verbose     | Whether to display full prompts           | No       | False      |
 
 ### Data Processing Configuration
 
-| Field               | Description                                                    | Required |
-|---------------------|----------------------------------------------------------------|----------|
-| overwrite_existing  | Whether to overwrite existing records in the database          | Yes      |
+| Field               | Description                                           | Required | Default |
+|---------------------|-------------------------------------------------------|----------|---------|
+| overwrite_existing  | Whether to overwrite existing records in the database | No       | False   |
 
 ### Prompt Configuration
 
@@ -117,52 +118,52 @@ This section defines the research goal, questions, input parameters, and output 
 
 #### Research Goal and Question
 
-| Field                    | Description                                              | Required |
-|--------------------------|----------------------------------------------------------|----------|
-| research_goal            | Overall goal of the literature search review             | Yes      |
-| information_to_exclude   | Information to be excluded from the analysis             | No       |
-| research_question        | Specific question to be answered (use {} for variables)  | Yes      |
+| Field                    | Description                                              | Required | Default |
+|--------------------------|----------------------------------------------------------|----------|---------|
+| research_goal            | Overall goal of the literature search review             | Yes      |         |
+| information_to_exclude   | Information to be excluded from the analysis             | No       | ""      |
+| research_question        | Specific question to be answered (use {} for variables)  | Yes      |         |
 
 #### Input Parameters
 
 Define the input parameters of interest (e.g., drugs, proteins, compounds). You can have multiple inputs.
 
-| Field       | Description                                   | Required |
-|-------------|-----------------------------------------------|----------|
-| name        | Name of the input parameter                   | Yes      |
-| description | Description of the input parameter            | No       |
-| max_length  | Maximum length of the input value             | Yes      |
-| value       | List of possible values for the parameter     | Yes      |
+| Field       | Description                                   | Required | Default |
+|-------------|-----------------------------------------------|----------|---------|
+| name        | Name of the input parameter                   | Yes      |         |
+| description | Description of the input parameter            | No       | ""      |
+| max_length  | Maximum length of the input value             | Yes      |         |
+| value       | List of possible values for the parameter     | Yes      |         |
 
 For each value:
 
-| Field        | Description                                            | Required |
-|--------------|--------------------------------------------------------|----------|
-| name         | Main name of the value                                 | Yes      |
-| pubmed_alias | Aliases to be used in PubMed search (JSON list format) | No       |
-| llm_aliases  | Aliases to be used for LLM extraction (JSON list format)| No       |
+| Field        | Description                                             | Required | Default |
+|--------------|---------------------------------------------------------|----------|---------|
+| name         | Main name of the value                                  | Yes      |         |
+| pubmed_alias | Aliases to be used in PubMed search (JSON list format)  | No       | ""      |
+| llm_aliases  | Aliases to be used for LLM extraction (JSON list format)| No       | ""      |
 
 #### Output Features
 
 Define the features you want to extract from the literature.
 
-| Field            | Description                                       | Required |
-|------------------|---------------------------------------------------|----------|
-| name             | Name of the output feature                        | Yes      |
-| description      | Description of the output feature                 | Yes      |
-| data_type        | Data type of the feature (e.g., str, int, dict)   | Yes      |
-| required         | Whether the field is required in the LLM output   | Yes      |
-| multiple_values  | Whether the feature expects a list of values      | Yes      |
-| max_length       | Maximum length of the feature value (for strings) | No       |
-| allowed_values   | List of allowed values (if applicable)            | No       |
+| Field            | Description                                       | Required | Default |
+|------------------|---------------------------------------------------|----------|---------|
+| name             | Name of the output feature                        | Yes      |         |
+| description      | Description of the output feature                 | No       | ""      |
+| data_type        | Data type of the feature (e.g., str, int, dict)   | Yes      |         |
+| required         | Whether the field is required in the LLM output   | No       | True    |
+| multiple_values  | Whether the feature expects a list of values      | No       | False   |
+| max_length       | Maximum length of the feature value (for strings) | Yes      |         |
+| allowed_values   | List of allowed values (if applicable)            | No       | None    |
 
 For allowed values:
 
-| Field       | Description                           | Required |
-|-------------|---------------------------------------|----------|
-| name        | Name of the allowed value             | Yes      |
-| alias       | Alias to be used by the LLM           | Yes      |
-| description | Description of the allowed value      | Yes      |
+| Field       | Description                           | Required | Default |
+|-------------|---------------------------------------|----------|---------|
+| name        | Name of the allowed value             | Yes      |         |
+| alias       | Alias to be used by the LLM           | No       | ""      |
+| description | Description of the allowed value      | No       | ""      |
 
 #### Examples
 
