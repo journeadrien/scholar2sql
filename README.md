@@ -2,7 +2,7 @@
 
 scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. This package offers two key advantages: automated literature review processing (parsing, extraction, and structured organization of key information) and generalized <b>literature screening</b> through customizable <i>input parameters</i> broadening the scope of your research question.
 
-This tool was used for the creation of the sql table the drug screening literature search on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). You can find the config file in this repo in the examples folder.
+This tool was used for the creation of the sql table of th drug screening literature search on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
 ## Concept
 
@@ -37,19 +37,20 @@ pip install .
 
 ## Usage
 
-1. Create a YAML configuration file (see Configuration section for details)
-2. try loading the config and resolve validation error
+1. Create a YAML configuration file, many field are required (see Configuration section for details), it is a long process, take your time!
+2. To enable pdf parsing, start a grobid service (I recomand using [docker here](https://grobid.readthedocs.io/en/latest/Grobid-docker/))
+3. Try loading the config and resolve validation error
 
 ```bash
-s2s_load_settings path_to_config.yaml # s2s_load_settings template/ic_drug.yaml
+s2s_load_settings path_to_config.yaml # s2s_load_settings examples/ic_drug.yaml
 ```
 3. reset sql talbe
 ```bash
-s2s_reset_sql_table path_to_config.yaml # s2s_reset_sql_table template/ic_drug.yaml
+s2s_reset_sql_table path_to_config.yaml # s2s_reset_sql_table examples/ic_drug.yaml
 ```
 4. run
 ```bash
-s2s_run path_to_config.yaml # s2s_run template/ic_drug.yaml
+s2s_run path_to_config.yaml # s2s_run examples/ic_drug.yaml
 ```
 ## Configuration
 

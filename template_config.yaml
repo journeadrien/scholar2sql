@@ -1,0 +1,69 @@
+# SQL config required host (localhost if local), username,password, database and table
+# table will be created and fill.
+sql_database:
+  host: 
+  username: 
+  password: 
+  database: 
+  table: 
+
+# Logging config
+logging:
+  level: debug # choose between [debug, info, warn, error]
+  external_packages: error
+
+# scholar_search config
+scholar_search:
+  top_sections_per_article: 10 # For each article, select the top_k_section based on bm25 algorithm 
+  email:  # Required for pubmed and unpaywall API
+  # Pubmed config
+  pubmed:
+    top_k_article_per_search: 200 # For each pubmed search, select the top_k_article (pubmed sort by relevancy).
+    api_key:  #A PI key for pubmed to get it: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
+    additional_search_keywords: "" # Keywords including in the pubmed search with inputs (ex: "AND (proteins OR sodium)")
+    #tmp_pmc_folder: # Where pubmed central xml will be stored (default: tmp/pmc)
+    #tmp_abstract_folder:  # Where abstract from pubmed will be stored (default: tmp/tmp_abstract_folder)
+  # Grobid config
+  grobid:
+    url: "http://localhost:8070"
+    #tmp_pdf_folder: #Where pdf will be stored (default: tmp/pdf)
+    #tmp_tei_folder: #Where tei (grobid format) will be stored (default: tmp/tei)
+
+# Openai config
+openai:
+  model:  # choose you model name
+  token:  # Enter you api key
+  verbose: False #If set to true, you will see the full prompt sent to openai
+
+data_processing:
+  overwrite_existing: False # To avoid recomputing (saving money for openai) it will look if a corresponding record is in the database.
+
+# Prompt config (where the real work for you is) it will fill the prompt template in file: schlar2sql.llm.prompt
+prompt:
+  # Finish the sentence: 'The goal is ' defining the goal of this litterature search review.
+  research_goal: 
+  # If you have any information you don't want to take into account
+  #information_to_exclude: 
+  # First step is to define the question you are interested in it.
+  research_question:  # field in between {} are inputs/elements_of_interest name
+  # input_parameters of interests (drugs, proteins, compound etc...), You can have as many inputs, 
+  # it will loop (all possible combination of the values).
+  input_parameters: 
+    - name:  #name (needs to be in question)
+      description: "" # description will be add to the prompt
+      max_length:  # Size is the number of character usefull to set SQL type
+      value: # List all inputs value
+        - name:  # main name
+          pubmed_alias:  # alias that will be add along the name for pubmed search
+          llm_aliases:  # alias that will be add along the name for llm extracting
+  # output_features correspond to the features you want to extract
+  output_features:
+    - name: 
+      description: 
+      data_type:  # need for assessing SQL type
+      required: False # whether the field is required in the llm output
+      multiple_values: False # whether it is expecting a list of the type defined
+   
+  # Example are usefull to give guiderails, by giving complex example you can tell the model how to behave
+  examples: #it needs to follow the output
+   
