@@ -17,7 +17,6 @@ dependencies = [
     "beautifulsoup4",
     "biopython",
     "lxml",
-    "scholarag",
     "scholaretl",
     "langchain_community",
     "langchain_openai",

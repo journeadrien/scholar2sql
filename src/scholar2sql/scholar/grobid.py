@@ -59,7 +59,8 @@ class GrobidAPIWrapper(BaseModel):
     @retry(
         retry=retry_if_exception_type(RETRY_EXCEPTIONS),
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like Grobid is down!"))
     )
     async def parse_pdf_with_grobid(self, pubmed_id: str, pdf_path: Path) -> Article | None:
         """
@@ -126,7 +127,8 @@ class GrobidAPIWrapper(BaseModel):
     @retry(
         retry=retry_if_exception_type(RETRY_EXCEPTIONS),
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like unpaywall is down!"))
     )
     def _get_pdf_urls_from_unpaywall(self, doi: str) -> str | None:
         """

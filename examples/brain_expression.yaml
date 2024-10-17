@@ -1,0 +1,235 @@
+# SQL config required host (localhost if local), username,password, database and table
+# table will be created and fill.
+sql_database:
+  host: localhost
+  username: root
+  password: root
+  database: channelpedia
+  table: brain_expression
+  metadata:
+    to_save: ["pubmed_id", "format", "sections"] # always start with pubmed_id default ["pubmed_id", "format", "sections"]
+
+# Logging config
+logging:
+  level: debug # choose between [debug, info, warn, error]
+  external_packages: error
+
+# scholar_search config
+scholar_search:
+  top_sections_per_article: 10 # For each article, select the top_k_section based on bm25 algorithm 
+  email: adrien.journe@epfl.ch # Required for pubmed and unpaywall API
+  # Pubmed config
+  pubmed:
+    top_articles_per_search: 50 # For each pubmed search, select the top_k_article (pubmed sort by relevancy).
+    api_key:  #API key for pubmed to get it: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
+    additional_search_keywords: "AND (cortex OR (brain AND region))" # Keywords including in the pubmed search with inputs (ex: "AND (proteins OR sodium)")
+    #tmp_pmc_folder: # Where pubmed central xml will be stored (default: tmp/pmc)
+    #tmp_abstract_folder:  # Where abstract from pubmed will be stored (default: tmp/tmp_abstract_folder)
+  # Grobid config
+  grobid:
+    url: "http://localhost:8070"
+    #tmp_pdf_folder: #Where pdf will be stored (default: tmp/pdf)
+    #tmp_tei_folder: #Where tei (grobid format) will be stored (default: tmp/tei)
+
+# Openai config
+openai:
+  model: gpt-4o # choose you model name recommend gpt-4o
+  token:  # Enter you api key
+  verbose: False #If set to true, you will see the full prompt sent to openai
+
+data_processing:
+  overwrite_existing: False # To avoid recomputing (saving money for openai) it will look if a corresponding record is in the database.
+
+# Prompt config (where the real work for you is) it will fill the prompt template in file: schlar2sql.llm.prompt
+prompt:
+  # Finish the sentence: 'The goal is ' defining the goal of this litterature search review.
+  research_goal: "to get the expression of a specific ion channel within the cerebral cortex"
+  # If you have any information you don't want to take into account
+  information_to_exclude: " Discard any information about channel mutants, complex mouse model or hypothesis location."
+  # First step is to define the question you are interested in it.
+  research_question: "Does this paper explicitly report an expression of {ion_channel} within the cortex?" # field in between {} are inputs/elements_of_interest name
+  # input_parameters of interests (drugs, proteins, compound etc...), You can have as many inputs, 
+  # it will loop (all possible combination of the values).
+  input_parameters: 
+    - name: ion_channel #name (needs to be in question)
+      description: "" # description will be add to the prompt
+      max_length: 10 # Size is the number of character usefull to set SQL type
+      value: # List all inputs value
+        - name: "kv1.1" # main name
+          pubmed_alias: '["kv 1.1", "kcna1", "kcpvd"]' # alias that will be add along the name for pubmed search
+          llm_aliases: '["kcna1"]' # alias that will be add along the name for llm extracting
+        - name: "kv1.2"
+          pubmed_alias: '["kv 1.2", "kcna2", "BK2", "NGK1"]'
+          llm_aliases: '["kcna2"]'
+        - name: "kv1.3" # main name
+          pubmed_alias: '["kv 1.3", "kcna3"]' # alias that will be add along the name for pubmed search
+          llm_aliases: '["kcna3"]' # alias that will be add along the name for llm extracting
+        - name: "kv1.4"
+          pubmed_alias: '["kv 1.4", "kcna4"]'
+          llm_aliases: '["kcna4"]'
+        - name: "kv1.5" # main name
+          pubmed_alias: '["kv 1.5", "kcna5"]' # alias that will be add along the name for pubmed search
+          llm_aliases: '["kcna5"]' # alias that will be add along the name for llm extracting
+        - name: "kv1.6"
+          pubmed_alias: '["kv 1.6", "kcna6", "MK1.6"]'
+          llm_aliases: '["kcna6"]'
+        - name: "kv1.7" # main name
+          pubmed_alias: '["kv 1.7", "kcna7"]' # alias that will be add along the name for pubmed search
+          llm_aliases: '["kcna7"]' # alias that will be add along the name for llm extracting
+        - name: "kv1.8"
+          pubmed_alias: '["kv 1.8", "kcna8"]'
+          llm_aliases: '["kcna8"]'
+  # output feattures you want to extract
+  output_features:
+    - name: section_analysis
+      description: "Analysis of each section and the relevancy related the question."
+      data_type: dict # need for assessing SQL type
+      required: True # whether the field is required in the llm output
+      multiple_values: False # whether it is expecting a list of the type defined
+    - name: sufficient_sections
+      description: "Sufficient section ID that will be used for the next fields 'brain_region,  neuron_type and neuron_distribution'"
+      data_type: int
+      required: True
+      multiple_values: True
+    - name: brain_region
+      description: "In which region of the brain the ion channel is expressed."
+      data_type: str
+      max_length: 2
+      required: False
+      multiple_values: True
+      allowed_values: #if the output can only be within a list of choices
+        - name: PrimaryMotorCortex #name
+          alias: M1 #alias, llm will return that value
+          description: "primary motor cortex" # the meaning of the field
+        - name: SecondaryMotorCortex
+          alias: M2
+          description: "secondary motor cortex"
+        - name: PrimarySomatosensoryCortex
+          alias: S1
+          description: "primary somatosensory cortex"
+        - name: SecondarySomatosensoryCortex #name
+          alias: S2 #alias, llm will return that value
+          description: "secondary somatosensory cortex" # the meaning of the field
+        - name: PrimaryVisualCortex
+          alias: V1
+          description: "primary visual cortex"
+        - name: SecondaryVisualCortex
+          alias: V2
+          description: "Secondary visual cortex"
+        - name: AuditoryCortex
+          alias: A1
+          description: "auditory cortex"
+        - name: PrefrontalCortex #name
+          alias: P1 #alias, llm will return that value
+          description: "prefrontal cortex" # the meaning of the field
+        - name: CingulateCortex
+          alias: C1
+          description: "cingulate cortex"
+        - name: RetrosplenialCortex
+          alias: R1
+          description: "retrosplenial cortex"
+    - name: neuron_type
+      description: "What type of neuron the ion channel is expressed."
+      data_type: str
+      max_length: 3
+      required: False
+      multiple_values: True
+      allowed_values: #if the output can only be within a list of choices
+        - name: Glutametergic #name
+          alias: GLU #alias, llm will return that value
+          description: "glutametergic or excitatory neuron" # the meaning of the field
+        - name: Interneurons
+          alias: IN
+          description: "interneurons or inhibitory cortex"
+    - name: neuron_distribution
+      description: "What type of neuron the ion channel is expressed."
+      data_type: str
+      max_length: 3
+      required: False
+      multiple_values: True
+      allowed_values: #if the output can only be within a list of choices
+        - name: Soma #name
+          alias: S #alias, llm will return that value
+          description: "soma" # the meaning of the field
+        - name: Axon
+          alias: A
+          description: "axon"
+        - name: AxonInitialSegment
+          alias: AIS
+          description: "axon initial segment"
+        - name: DistalDendrite #name
+          alias: DD #alias, llm will return that value
+          description: "distal dendrite" # the meaning of the field
+        - name: ApicalDendrite
+          alias: AD
+          description: "apical dendrite"
+    - name: dose_response
+      description: "All doses/concentrations and corresponding responses/effects if found as well as IC50 or EC50 reported, but ONLY for the specific drug and channel"
+      data_type: str
+      max_length: 255
+      required: False
+      multiple_values: False
+    - name: study_type
+      description: "Type of testing reported"
+      data_type: str
+      max_length: 6
+      required: False
+      multiple_values: True
+      allowed_values:
+        - name: cell
+          alias: CELL
+          description: "in lab cell study"
+        - name: animal
+          alias: ANIMAL
+          description: "in lab living animal study"
+        - name: human
+          alias: HUMAN
+          description: "clinical study"
+        - name: silico
+          alias: SILICO
+          description: "computational study"
+    - name: subject
+      description: "Cell-line / species / mouse model name / human characteristic, subject to the drug testing"
+      data_type: str
+      max_length: 255
+      required: False
+      multiple_values: False
+  # Example are usefull to give guiderails, by giving complex example you can tell the model how to behave
+  examples: #it needs to follow the output
+    - input_parameters:
+        ion_channel: "Nav1.2 (a.k.a Scn2a)"
+      sections: # To mock a article, fill the sections like a dictionary.
+        section 1: "We first performed immunostaining of layer 5 pyramidal neurons of the rat prefrontal cortex to map the distribution of Na+ channel subtypes and the Na+ channel–associated protein ankyrin-G (AnkG), which is known to accumulate at the AIS (Fig. 1). We found a differential distribution of Nav1.2 and Nav1.6 at the proximal and distal AIS, respectively (Fig. 1a,b). Further immunostaining of 100-μm-thick sections showed a peak in the density of Nav1.6 channels between 30 and 50 μm from the soma (Supplementary Fig. 1), corresponding to the action potential initiation zone that was previously identified. To examine the density of total Na+ channels, we stained the AIS with a pan-alpha Na+ channel antibody (Pan-Nav), which recognizes both Nav1.2 and Nav1.6 channels."
+        section 2: "Consistent with previous findings, we observed strong Pan-Nav immunoreactivity at the AIS, with a peak distribution between 10 and 20 μm (Fig. 1c), corresponding to the region of Nav1.2 accumulation. Although immunoreactivity was undetectable in the somatic membrane, electrophysiological recordings in the following experiments indicated that high-threshold Na+ channels were present in the soma (see below)."
+        section 3: "Neuro2a cells in culture are treated for 24h with metabol and recorded with manual patch clamp with extracellular solution, revealing an antagonist effect of the drug on kv2.1."
+        section 4: "The drug valpiricol at 1ug/ml inactivates by 70% Scn2a activity in culture of CHO cells."
+      output_features:
+        section_analysis:
+          section 1: "Nav1.2 and Nav1.6 have different distributions in AIS. (sufficient)"
+          section 2: "Nav1.2 peak distribution is between 10-20 um from the soma in AIS (sufficient)"
+          section 3: "No explicit information about the expression of Nav1.2 within the cortex. (irrelevant)"
+          section 4: "No explicit information about the expression of Nav1.2 within the cortex. (irrelevant)"
+        sufficient_sections: [1, 2]
+        brain_region: ["P1"]
+        neuron_distribution: ["AIS"]
+        dose_response: "1µg/ml -> 70%"
+        study_type: ["CELL", "ANIMAL"]
+        subject: "rat | CHO cells"
+    - input_parameters:
+        ion_channel: "Nav1.1 (a.k.a Scn1a)"
+      sections:
+        Section 1: "These results indicate that Nav1.1 expression level in PV-INs is significantly higher than those in excitatory neurons and PV-negative GABAergic neurons including SST-INs."
+        Section 2: "Nav1.1, GFP, and ankyrinG on brains of Scn1a-GFP mouse at P15. In the neocortex (Figure 4), axon initial segments (AISs) of cells with Nav1.1-positive somata were always Nav1.1-positive but somata of cells with Nav1.1-positive AISs were occasionally Nav1.1-negative (Figure 4A–C).Cell counting revealed that 17% (L2/3), 21% (L5), and 8% (L6) of neurons (cells with ankyrinG-positive AISs) were GFP-positive (Figure 4D, left panel and Supplementary file 1b)."
+        Section 3: "We also show that Nav1.1 is expressed in inhibitory and a subpopulation of excitatory neurons not only in L5 but all layers of neocortex."
+        Section 4: "In juvenile and adult neocortex, Nav1.1 is predominantly expressed in inhibitory neurons while Nav1.2 is in excitatory neurons."
+      output_features:
+        section_analysis:
+          section 1: "PV-negative GABAergic neurons are a type of interneuron. These neurons and SST IN (interneurons) have Nav1.1 expression. (sufficient)"
+          section 2: "AIS: Nav1.1 is present in soma of cortical neuron of P15 mouse. If Nav1.1 is expressed in soma then it is not present in AIS (axon initial segment, the initial part of the axon). Soma: Nav1.1 is present in  soma of cortical neuron of P15 mouse. Layerwise expression data for Nav1.1 expression: 17% (L2/3), 21% (L5), and 8% (L6) of neurons. (sufficient)"
+          section 3: "Nav1.1 is expressed in interneuorns. Nav1.1 is present in a subpopulation of excitatory neurons not only in L5 but all layers of the neocortex. (sufficient)"
+          section 4: "Nav1.2 is mostly found excitatory (pyramidal) cortical neurons (sufficient)"
+        sufficient_sections: [1, 2, 3, 4]
+        neuron_type: ["IN"]
+        neuron_distribution: ["AIS", "S"]
+        study_type: ["ANIMAL"]
+        subject: "P15 mouse"

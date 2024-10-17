@@ -18,7 +18,7 @@ scholar_search:
   email: your_email # Required for pubmed and unpaywall API
   # Pubmed config
   pubmed:
-    top_k_article_per_search: 200 # For each pubmed search, select the top_k_article (pubmed sort by relevancy).
+    top_articles_per_search: 200 # For each pubmed search, select the top_k_article (pubmed sort by relevancy).
     api_key: your_api_key #A PI key for pubmed to get it: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
     additional_search_keywords: "" # Keywords including in the pubmed search with inputs (ex: "AND (proteins OR sodium)")
     #tmp_pmc_folder: # Where pubmed central xml will be stored (default: tmp/pmc)

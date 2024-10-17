@@ -66,6 +66,12 @@ The package requires a YAML configuration file to specify various settings. Belo
 | database | Name of the database                            | Yes      |
 | table    | Name of the table (will be created if not exist)| Yes      |
 
+#### Metadata Configuration
+
+| Field    | Description                                                  |  Default                           |
+|----------|--------------------------------------------------------------|-------------------------------------|
+| to_save  | Metadata to add to sql (["pubmed_id", "format", "sections"]) | ["pubmed_id", "format", "sections"] |
+
 ### Logging Configuration
 
 | Field             | Description                         | Options                  | Default |
@@ -84,7 +90,7 @@ The package requires a YAML configuration file to specify various settings. Belo
 
 | Field                      | Description                                        | Required | Default      |
 |----------------------------|----------------------------------------------------|----------|--------------|
-| top_k_article_per_search   | Number of top articles to select per PubMed search | No       | 10           |
+| top_articles_per_search   | Number of top articles to select per PubMed search | No       | 10           |
 | api_key                    | PubMed API key                                     | No       | ""           |
 | additional_search_keywords | Additional keywords to include in PubMed search    | No       | ""           |
 | tmp_pmc_folder             | Folder to store PubMed Central XML files           | No       | tmp/pmc      |

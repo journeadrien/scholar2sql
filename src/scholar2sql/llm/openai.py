@@ -11,6 +11,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, SecretStr, computed_field
 from typing import List
 from openai import AuthenticationError
+import httpx
 
 logger = logging.getLogger(__name__)
 
@@ -71,7 +72,8 @@ class OpenAiAPIWrapper(BaseModel):
             
     @retry(
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like Openai is down!"))
     )
     async def invoke_llm(self, research_question: str, sections: dict, pubmed_id: str = None) -> dict | None:
         """

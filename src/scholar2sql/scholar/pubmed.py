@@ -21,6 +21,12 @@ retry_on_error = (
     ET.ParseError
 )
 
+def pubmed_down(retry_state):
+    logger.log(
+        logging.ERROR, 'Retrying %s: attempt %s ended with: %s, looks like pubmed is down!',
+        retry_state.fn, retry_state.attempt_number, retry_state.outcome)
+    raise httpx.ConnectError("Looks like pubmed is down!")
+
 logger = logging.getLogger(__name__)
 
 class PubMedAPIWrapper(BaseModel):
@@ -56,7 +62,8 @@ class PubMedAPIWrapper(BaseModel):
     @retry(
         retry=retry_if_exception_type(retry_on_error),
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like PMC is down!"))
     )
     async def convert_pubmed_to_pmc_id(self, pubmed_id: str) -> Optional[str]:
         """
@@ -94,9 +101,10 @@ class PubMedAPIWrapper(BaseModel):
             return None
 
     @retry(
-        retry=retry_if_exception_type(retry_on_error),
+        retry=retry_if_exception_type(retry_on_error + (KeyError, )),
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like pubmed is down!"))
     )
     async def search_pubmed(self, query: str) -> List[str]:
         """
@@ -137,7 +145,8 @@ class PubMedAPIWrapper(BaseModel):
     @retry(
         retry=retry_if_exception_type(retry_on_error+(IndexError,)),
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like Pubmed is down!"))
     )
     async def get_pubmed_abstract(self, pubmed_id: str) -> Optional[Article]:
         """
@@ -194,7 +203,8 @@ class PubMedAPIWrapper(BaseModel):
     @retry(
         retry=retry_if_exception_type(retry_on_error),
         stop=stop_after_attempt(5),
-        wait=wait_random(min=0.1, max=0.5)
+        wait=wait_random(min=0.1, max=0.5),
+        retry_error_callback=lambda _: (_ for _ in ()).throw(httpx.ConnectError("Looks like PMC is down!"))
     )
     async def get_pubmed_central(self, pubmed_id: str) -> Optional[Article]:
         """
