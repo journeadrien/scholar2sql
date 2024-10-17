@@ -2,7 +2,7 @@
 
 scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. This package offers two key advantages: automated literature review processing (parsing, extraction, and structured organization of key information) and generalized <b>literature screening</b> through customizable <i>input parameters</i> broadening the scope of your research question.
 
-This tool was used for the creation of the sql table of th drug screening literature search on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
+This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
 ## Concept
 
@@ -44,7 +44,7 @@ pip install .
 ```bash
 s2s_load_settings path_to_config.yaml # s2s_load_settings examples/ic_drug.yaml
 ```
-3. reset sql talbe
+3. reset sql table
 ```bash
 s2s_reset_sql_table path_to_config.yaml # s2s_reset_sql_table examples/ic_drug.yaml
 ```
