@@ -10,7 +10,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/human_like_literature_review.png"  alt="literature search" style="width:100%"/>
+        <IMG src="images/literature_search.drawio.xml"  alt="literature search" style="width:100%"/>
         <br/><br/>
         <figcaption>Scholar2sql mimics human research methods by: (1) querying Pubmed to find relevant papers, and (2) analyzing each paper individually to extract key features.</figcaption>
     </figure>
