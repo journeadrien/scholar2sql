@@ -28,14 +28,14 @@ This tool was used for the creation of the sql table of the drug screening liter
 </details>
 <br/>
 
-### 2- Literature review <u>with sources</u>:
+### 3- Literature review <u>with sources</u>:
 <details open>
     <summary>colapse</summary>
     <figure markdown>
         <IMG src="images/literature_with_sources.png"  alt="Manual literature search" style="width:100%"/>
         <br/><br/>
         <figcaption>
-        
+
 Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. Giving a research question and an article it 1) retreive the most relevant sections using [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm 2) append a template (determined by the output features) 3) add the examples (helping the model behavior) 4) finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
     </figure>
 </details>
