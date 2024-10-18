@@ -6,22 +6,24 @@ This tool was used for the creation of the sql table of the drug screening liter
 
 ## Concept
 
+
 ### 1- <u>Human-like</u> literature review:
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/literature_search.drawio.xml"  alt="literature search" style="width:100%"/>
+        <IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
         <br/><br/>
         <figcaption>Scholar2sql mimics human research methods by: (1) querying Pubmed to find relevant papers, and (2) analyzing each paper individually to extract key features.</figcaption>
     </figure>
 </details>
 <br/>
 
+
 ### 2- <u>Screening</u> literature review:
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/screening_literature_review.png"  alt="Manual literature search" style="width:100%"/>
+        <IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:100%"/>
         <br/><br/>
         <figcaption>Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
     </figure>
@@ -32,7 +34,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/literature_with_sources.png"  alt="Manual literature search" style="width:100%"/>
+        <IMG src="images/literature_with_srouces.drawio.svg"  alt="Manual literature search" style="width:100%"/>
         <br/><br/>
         <figcaption>
 
@@ -41,6 +43,18 @@ Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-gener
 </details>
 <br/>
 
+### 4- Literature review based on <u>all Open Access article</u>:
+<details open>
+    <summary>colapse</summary>
+    <figure markdown>
+        <IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:800%"/>
+        <br/><br/>
+        <figcaption>
+
+</figcaption>
+    </figure>
+</details>
+<br/>
 ## Installation
 
 ```
