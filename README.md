@@ -22,7 +22,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:100%"/>
+        <IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
         <br/><br/>
         <figcaption>Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
     </figure>
