@@ -4,8 +4,7 @@ scholar2sql streamlines literature reviews by automatically extracting structure
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
-## Concept
-
+## Concepts
 
 ### 1- <u>Human-like</u> literature review:
 <details open>
@@ -47,14 +46,28 @@ Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-gener
 <details open>
     <summary>colapse</summary>
     <figure markdown>
-        <IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:800%"/>
+        <IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
         <br/><br/>
         <figcaption>
-
-</figcaption>
+        The process of getting the Open-Access article 1) first get the full-text from pubmed central 2) download the abstract 3) download and parse pdf.
+        </figcaption>
     </figure>
 </details>
 <br/>
+
+## Why this approach
+
+Automated literature screening with large language models (LLMs) provides significant benefits for navigating the complex landscape of scientific literature:
+<br/><br/>
+### 1- Cost Efficiency
+
+Running LLMs can be resource-intensive, but generating outputs once and storing them maximizes efficiency. This reduces repeated processing, saving time and costs while allowing for easy access to processed data.
+<br/><br/>
+### 2- Managing Information Overload
+
+The volume of scientific publications is overwhelming, making manual reviews impractical. LLMs can quickly process large datasets, filtering and prioritizing relevant information. They also help identify inconsistencies and errors in the literature, highlighting areas for further investigation.
+<br/><br/>
+
 ## Installation
 
 ```
