@@ -1,6 +1,6 @@
 # scholar2sql
 
-scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. This package offers two key advantages: automated literature review processing (parsing, extraction, and structured organization of key information) and generalized <b>literature screening</b> through customizable <i>input parameters</i> broadening the scope of your research question.
+scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) generalized literature screening through customizable input parameters streamlining your personal literature research outcomes.
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
@@ -23,7 +23,20 @@ This tool was used for the creation of the sql table of the drug screening liter
     <figure markdown>
         <IMG src="images/screening_literature_review.png"  alt="Manual literature search" style="width:100%"/>
         <br/><br/>
-        <figcaption>Once you devined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
+        <figcaption>Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
+    </figure>
+</details>
+<br/>
+
+### 2- Literature review <u>with sources</u>:
+<details open>
+    <summary>colapse</summary>
+    <figure markdown>
+        <IMG src="images/literature_with_sources.png"  alt="Manual literature search" style="width:100%"/>
+        <br/><br/>
+        <figcaption>
+        
+Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. Giving a research question and an article it 1) retreive the most relevant sections using [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm 2) append a template (determined by the output features) 3) add the examples (helping the model behavior) 4) finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
     </figure>
 </details>
 <br/>
