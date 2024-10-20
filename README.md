@@ -1,12 +1,13 @@
 # scholar2sql
 
-scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) generalized literature screening through customizable input parameters streamlining your personal literature research outcomes.
+scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) proposed literature screening through customizable input parameters streamlining your personal literature research outcomes.
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
 ## Concepts
 
 ### 1- <u>Human-like</u> literature review:
+
 <details open>
     <summary>colapse</summary>
     <figure markdown>
@@ -19,6 +20,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 
 
 ### 2- <u>Screening</u> literature review:
+
 <details open>
     <summary>colapse</summary>
     <figure markdown>
@@ -30,6 +32,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 <br/>
 
 ### 3- Literature review <u>with sources</u>:
+
 <details open>
     <summary>colapse</summary>
     <figure markdown>
@@ -42,7 +45,8 @@ Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-gener
 </details>
 <br/>
 
-### 4- Literature review based on <u>all Open Access article</u>:
+### 4- Literature review based on <u>all Open Access articles</u>:
+
 <details open>
     <summary>colapse</summary>
     <figure markdown>
@@ -57,15 +61,15 @@ Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-gener
 
 ## Why this approach
 
-Automated literature screening with large language models (LLMs) provides significant benefits for navigating the complex landscape of scientific literature:
+Automated literature screening with large language models (LLMs) offers significant advantages for navigating the intricate world of scientific literature:
 <br/><br/>
 ### 1- Cost Efficiency
 
-Running LLMs can be resource-intensive, but generating outputs once and storing them maximizes efficiency. This reduces repeated processing, saving time and costs while allowing for easy access to processed data.
+LLMs serve as personal assistants, providing valuable outputs that can be structured and stored for broader accessibility. By generating results once and organizing them in an understandable format, we enhance efficiency. This approach minimizes redundant processing, saving both time and costs, while ensuring processed data is readily available to everyone.
 <br/><br/>
 ### 2- Managing Information Overload
 
-The volume of scientific publications is overwhelming, making manual reviews impractical. LLMs can quickly process large datasets, filtering and prioritizing relevant information. They also help identify inconsistencies and errors in the literature, highlighting areas for further investigation.
+The sheer volume of scientific publications can be overwhelming, making manual reviews impractical. Our approach aims to create a tool that not only processes large datasets swiftly but also facilitates the comparison of scientific results. This helps in distinguishing truth from falsehood, filtering out irrelevant information, and pinpointing inconsistencies and errors in the literature, thereby highlighting critical areas for further investigation.
 <br/><br/>
 
 ## Installation
