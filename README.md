@@ -14,7 +14,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 <IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
 <br/><br/>
 <figcaption>
-Scholar2sql mimics human research methods by: 1) querying Pubmed to find relevant papers, and 2) analyzing each paper individually to extract key features.
+Scholar2Sql mimics human expert literature review, extracting key features from articles, but scales the process to analyze a vastly larger number of publications than possible manually.
 </figcaption>
 </figure>
 </details>
