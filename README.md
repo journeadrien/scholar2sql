@@ -9,12 +9,14 @@ This tool was used for the creation of the sql table of the drug screening liter
 ### 1- <u>Human-like</u> literature review:
 
 <details open>
-    <summary>colapse</summary>
-    <figure markdown>
-        <IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
-        <br/><br/>
-        <figcaption>Scholar2sql mimics human research methods by: (1) querying Pubmed to find relevant papers, and (2) analyzing each paper individually to extract key features.</figcaption>
-    </figure>
+<summary>colapse</summary>
+<figure markdown>
+<IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
+<br/><br/>
+<figcaption>
+Scholar2sql mimics human research methods by: 1) querying Pubmed to find relevant papers, and 2) analyzing each paper individually to extract key features.
+</figcaption>
+</figure>
 </details>
 <br/>
 
@@ -22,25 +24,28 @@ This tool was used for the creation of the sql table of the drug screening liter
 ### 2- <u>Screening</u> literature review:
 
 <details open>
-    <summary>colapse</summary>
-    <figure markdown>
-        <IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
-        <br/><br/>
-        <figcaption>Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.</figcaption>
-    </figure>
+<summary>colapse</summary>
+<figure markdown>
+<IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
+<br/><br/>
+<figcaption>
+
+Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.
+</figcaption>
+</figure>
 </details>
 <br/>
 
 ### 3- Literature review <u>with sources</u>:
 
 <details open>
-    <summary>colapse</summary>
-    <figure markdown>
-        <IMG src="images/literature_with_srouces.drawio.svg"  alt="Manual literature search" style="width:100%"/>
-        <br/><br/>
-        <figcaption>
+<summary>colapse</summary>
+<figure markdown>
+<IMG src="images/literature_with_srouces.drawio.svg"  alt="Manual literature search" style="width:100%"/>
+<br/><br/>
+<figcaption>
 
-Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. Giving a research question and an article it 1) retreive the most relevant sections using [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm 2) append a template (determined by the output features) 3) add the examples (helping the model behavior) 4) finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
+Scholar2sql extracts features from text with sources by: 1) Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. It first retreives the most relevant sections using [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm. 2) The prompt is then created by combining the best sections to a template (determined by the output features) and the examples (helping the model behavior). Finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
     </figure>
 </details>
 <br/>
@@ -48,14 +53,15 @@ Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-gener
 ### 4- Literature review based on <u>all Open Access articles</u>:
 
 <details open>
-    <summary>colapse</summary>
-    <figure markdown>
-        <IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
-        <br/><br/>
-        <figcaption>
-        The process of getting the Open-Access article 1) first get the full-text from pubmed central 2) download the abstract 3) download and parse pdf.
-        </figcaption>
-    </figure>
+<summary>colapse</summary>
+<figure markdown>
+<IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
+<br/><br/>
+<figcaption>
+
+The process of getting the Open-Access article: 1) first get the full-text from pubmed central 2) download the abstract 3) download the pdf and 4) parse it using GROBID.
+</figcaption>
+</figure>
 </details>
 <br/>
 
