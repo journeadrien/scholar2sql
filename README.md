@@ -81,9 +81,9 @@ pip install .
 
 ## Usage
 
-1. Create a YAML configuration file, many field are required (see Configuration section for details), it is a long process, take your time!
+1. Create a YAML configuration file, many fields are required (see Configuration section for details). This is a long process, take your time! There are examples provided in the 'examples' folder.
 2. To enable pdf parsing, start a grobid service (I recomand using [docker here](https://grobid.readthedocs.io/en/latest/Grobid-docker/))
-3. Try loading the config and resolve validation error
+3. Try loading the config file and resolve the validation errors (if they occur)
 
 ```bash
 s2s_load_settings path_to_config.yaml # s2s_load_settings examples/ic_drug.yaml
@@ -98,7 +98,7 @@ s2s_run path_to_config.yaml # s2s_run examples/ic_drug.yaml
 ```
 ## Configuration
 
-The package requires a YAML configuration file to specify various settings. Below is an explanation of each section in the configuration file:
+The package requires a YAML configuration file which specifies various settings. Below are explanations of each section in the configuration file:
 
 ### SQL Database Configuration
 
