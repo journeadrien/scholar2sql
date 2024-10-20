@@ -1,6 +1,6 @@
 # scholar2sql
 
-scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) proposed literature screening through customizable input parameters streamlining your personal literature research outcomes.
+scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) proposed literature screening through customizable input parameters facilitating your personal literature research outcomes.
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
