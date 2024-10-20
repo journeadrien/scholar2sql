@@ -29,7 +29,6 @@ Scholar2Sql mimics human expert literature review, extracting key features from 
 <IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
 <br/><br/>
 <figcaption>
-
 Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.
 </figcaption>
 </figure>
@@ -45,8 +44,8 @@ Once you defined your research question along with the input paramters, scholar2
 <br/><br/>
 <figcaption>
 
-Scholar2sql extracts features from text with sources by: 1) Scholar2sql has a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. It first retreives the most relevant sections using [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm. 2) The prompt is then created by combining the best sections to a template (determined by the output features) and the examples (helping the model behavior). Finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
-    </figure>
+Scholar2sql extracts features from text with sources by: 1) using a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. (the best sections are found using a [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm. 2) Engineering the prompt by combining the best sections to a template (determined by the output features) and the examples (helping the model behavior). Finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
+</figure>
 </details>
 <br/>
 
