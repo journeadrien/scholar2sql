@@ -69,11 +69,11 @@ The process of getting the Open-Access article: 1) first get the full-text from 
 
 Automated literature screening with large language models (LLMs) offers significant advantages for navigating the intricate world of scientific literature:
 <br/><br/>
-### 1- Cost Efficiency
+### 1- Making LLM Insights More Accessible
 
-LLMs serve as personal assistants, providing valuable outputs that can be structured and stored for broader accessibility. By generating results once and organizing them in an understandable format, we enhance efficiency. This approach minimizes redundant processing, saving both time and costs, while ensuring processed data is readily available to everyone.
+Researchers are finding new ways to use large language models (LLMs) to help process and analyze information. Our project aims to make the insights from these LLMs more widely available by organizing them in an easy-to-understand format. This could help people from various backgrounds access and use this information. Rather than having to repeatedly ask LLMs questions, which can be time-consuming and costly, our approach offers a way to access pre-organized information. We hope this might make research more efficient and accessible for more people.
 <br/><br/>
-### 2- Managing Information Overload
+### 2- Analyzing and Validating Scientific Literature
 
 The sheer volume of scientific publications can be overwhelming, making manual reviews impractical. Our approach aims to create a tool that not only processes large datasets swiftly but also facilitates the comparison of scientific results. This helps in distinguishing truth from falsehood, filtering out irrelevant information, and pinpointing inconsistencies and errors in the literature, thereby highlighting critical areas for further investigation.
 <br/><br/>
