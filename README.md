@@ -1,6 +1,6 @@
 # scholar2sql
 
-scholar2sql streamlines literature reviews by automatically extracting structured data from scholarly papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) proposed literature screening through customizable input parameters facilitating your personal literature research outcomes.
+scholar2sql streamlines literature reviews by automatically extracting structured data from scientific papers and storing it in a SQL database. Overall, this package offers two key advantages: (1) automated literature review processing (parsing, extraction, and structured organization of key information) and (2) proposed literature screening through customizable input parameters targeting your personal literature research outcomes.
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
@@ -9,7 +9,7 @@ This tool was used for the creation of the sql table of the drug screening liter
 ### 1- <u>Human-like</u> literature review:
 
 <details open>
-<summary>colapse</summary>
+<summary>collapse</summary>
 <figure markdown>
 <IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
 <br/><br/>
@@ -24,12 +24,12 @@ Scholar2Sql mimics human expert literature review, extracting key features from 
 ### 2- <u>Screening</u> literature review:
 
 <details open>
-<summary>colapse</summary>
+<summary>collapse</summary>
 <figure markdown>
 <IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
 <br/><br/>
 <figcaption>
-Once you defined your research question along with the input paramters, scholar2sql will loop over them and for each will extract the features and fill the sql table.
+Once you have defined your research question along with the input parameters, scholar2sql will loop over them and for each will extract the features and fill the sql table.
 </figcaption>
 </figure>
 </details>
@@ -38,13 +38,13 @@ Once you defined your research question along with the input paramters, scholar2
 ### 3- Literature review <u>with sources</u>:
 
 <details open>
-<summary>colapse</summary>
+<summary>collapse</summary>
 <figure markdown>
 <IMG src="images/literature_with_srouces.drawio.svg"  alt="Manual literature search" style="width:100%"/>
 <br/><br/>
 <figcaption>
 
-Scholar2sql extracts features from text with sources by: 1) using a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. (the best sections are found using a [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm. 2) Engineering the prompt by combining the best sections to a template (determined by the output features) and the examples (helping the model behavior). Finally ChatGPT fill the template using the informations from the sections with the help of the examples.</figcaption>
+Scholar2sql extracts features from text with sources by: 1) using a [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation) architecture. (the best sections are found using a [bm25](https://www.luigisbox.com/search-glossary/bm25/#:~:text=BM25%2C%20or%20Best%20Match%2025,based%20on%20their%20relevance%20scores) algorithm.) 2) Engineering the prompt by combining the best sections to a template (determined by the output features) and the examples (helping the model behavior). Finally ChatGPT fills the template using the informations from the sections with the help of the examples.</figcaption>
 </figure>
 </details>
 <br/>
@@ -52,7 +52,7 @@ Scholar2sql extracts features from text with sources by: 1) using a [RAG](https:
 ### 4- Literature review based on <u>all Open Access articles</u>:
 
 <details open>
-<summary>colapse</summary>
+<summary>collapse</summary>
 <figure markdown>
 <IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
 <br/><br/>
@@ -86,18 +86,18 @@ pip install .
 
 ## Usage
 
-1. Create a YAML configuration file, many fields are required (see Configuration section for details). This is a long process, take your time! There are examples provided in the 'examples' folder.
-2. To enable pdf parsing, start a grobid service (I recomand using [docker here](https://grobid.readthedocs.io/en/latest/Grobid-docker/))
+1. Create a YAML configuration file, many fields are required (see Configuration section for details). This is a long process; take your time! There are examples provided in the 'examples' folder.
+2. To enable pdf parsing, start a grobid service (I recommend using [docker here](https://grobid.readthedocs.io/en/latest/Grobid-docker/))
 3. Try loading the config file and resolve the validation errors (if they occur)
 
 ```bash
 s2s_load_settings path_to_config.yaml # s2s_load_settings examples/ic_drug.yaml
 ```
-3. reset sql table
+4. reset sql table
 ```bash
 s2s_reset_sql_table path_to_config.yaml # s2s_reset_sql_table examples/ic_drug.yaml
 ```
-4. run
+5. run
 ```bash
 s2s_run path_to_config.yaml # s2s_run examples/ic_drug.yaml
 ```
@@ -113,7 +113,7 @@ The package requires a YAML configuration file which specifies various settings.
 | username | Database username                               | Yes      |
 | password | Database password                               | Yes      |
 | database | Name of the database                            | Yes      |
-| table    | Name of the table (will be created if not exist)| Yes      |
+| table    | Name of the table                               | Yes      |
 
 #### Metadata Configuration
 
@@ -226,7 +226,7 @@ For allowed values:
 Provide examples to guide the LLM's behavior. Each example should include:
 
 - input_parameters
-- sections (mocked article content)
+- sections (mock article content)
 - output_features (expected output)
 
 ## Contributing
