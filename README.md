@@ -4,6 +4,8 @@ scholar2sql streamlines literature reviews by automatically extracting structure
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
+
+<br/>
 <figure markdown>
 <IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
 <br/><br/>
