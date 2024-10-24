@@ -22,7 +22,7 @@ Scholar2Sql mimics human expert literature review, extracting key features from 
 <details open>
 <summary>collapse</summary>
 <figure markdown>
-<IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
+<IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:75%"/>
 <br/><br/>
 <figcaption>
 
@@ -52,7 +52,7 @@ Scholar2sql extracts features from text with sources by: 1) using a [RAG](https:
 <details open>
 <summary>collapse</summary>
 <figure markdown>
-<IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
+<IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:90%"/>
 <br/><br/>
 <figcaption>
 
