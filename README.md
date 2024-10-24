@@ -15,7 +15,7 @@ Scholar2Sql mimics human expert literature review, extracting key features from 
 </figure>
 </details>
 
-## Explanation with figures
+## Concepts
 
 ### 1- Large scientific database of <u>All Open Access articles</u>:
 
@@ -47,7 +47,7 @@ Scholar2sql extracts features from text with sources by: 1) using a [RAG](https:
 <br/>
 
 
-### 3- <u>Screening</u> literature review:
+### 3- <u>Screening</u> literature review by targeting your interest:
 
 <details open>
 <summary>collapse</summary>
@@ -56,7 +56,7 @@ Scholar2sql extracts features from text with sources by: 1) using a [RAG](https:
 <br/><br/>
 <figcaption>
 
-Once you have defined your research question along with the input parameters (aw many as you like). Scholar2sql will then loop over them and for each find the most relevant articles, loop again and for each article: 1) try to download its content ([figure 1](#1--large-scientific-database-of-all-open-access-articles)) 2) extract the features ([figure 2](#2--features-extraction-with-citationssources)) and 3) fill the sql table.
+Once you have defined your research question along with the input parameters (aw many as you like). Scholar2sql will then loop over them and for each find the most relevant articles, loop again and for each article: 1) try to download its content ([concept 1](#1--large-scientific-database-of-all-open-access-articles)) 2) extract the features ([concept 2](#2--features-extraction-with-citationssources)) and 3) fill the sql table.
 </figcaption>
 </figure>
 </details>
