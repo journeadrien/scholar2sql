@@ -56,7 +56,7 @@ Scholar2sql extracts features from text with sources by: 1) using a [RAG](https:
 <br/><br/>
 <figcaption>
 
-Once you have defined your research question along with the input parameters, scholar2sql will loop over them and for each will find the most relevant articles try to download its content ([figure 2](#1--extraction-of-features-with-citationssources)) extract the features ([figure 3](#2--all-open-access-articles)) and fill the sql table.
+Once you have defined your research question along with the input parameters, scholar2sql will loop over them and for each will find the most relevant articles try to download its content ([figure 2](#1--large-scientific-article-database-of-all-open-access-articles)) extract the features ([figure 3](#2--extraction-of-features-with-citationssources)) and fill the sql table.
 </figcaption>
 </figure>
 </details>
