@@ -4,12 +4,6 @@ scholar2sql streamlines literature reviews by automatically extracting structure
 
 This tool was used for the creation of the sql table of the drug screening literature review on ion channel found [here on channelpedia](https://channelpedia.epfl.ch/drug_mapping). The configuration file is located in the <i>examples</i> folder of this repository.
 
-## Concepts
-
-### 1- <u>Human-like</u> literature review:
-
-<details open>
-<summary>collapse</summary>
 <figure markdown>
 <IMG src="images/literature_search.drawio.svg"  alt="literature search" style="width:100%"/>
 <br/><br/>
@@ -18,24 +12,25 @@ Scholar2Sql mimics human expert literature review, extracting key features from 
 </figcaption>
 </figure>
 </details>
-<br/>
 
+## Concepts
 
-### 2- <u>Screening</u> literature review:
+### 1- Large scientific article database of <u>All Open Access articles</u>:
 
 <details open>
 <summary>collapse</summary>
 <figure markdown>
-<IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
+<IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
 <br/><br/>
 <figcaption>
-Once you have defined your research question along with the input parameters, scholar2sql will loop over them and for each will extract the features and fill the sql table.
+
+The process of getting the Open-Access article: 1) first get the full-text from pubmed central 2) download the abstract 3) download the pdf and 4) parse it using GROBID.
 </figcaption>
 </figure>
 </details>
 <br/>
 
-### 3- Literature review <u>with sources</u>:
+### 2- Extraction of features with <u>citations/sources</u>:
 
 <details open>
 <summary>collapse</summary>
@@ -49,16 +44,17 @@ Scholar2sql extracts features from text with sources by: 1) using a [RAG](https:
 </details>
 <br/>
 
-### 4- Literature review based on <u>all Open Access articles</u>:
+
+### 3- <u>Screening</u> literature review:
 
 <details open>
 <summary>collapse</summary>
 <figure markdown>
-<IMG src="images/pdf_extractor.drawio.svg"  alt="Manual literature search" style="width:70%"/>
+<IMG src="images/screning_review.drawio.svg"  alt="Manual literature search" style="width:80%"/>
 <br/><br/>
 <figcaption>
 
-The process of getting the Open-Access article: 1) first get the full-text from pubmed central 2) download the abstract 3) download the pdf and 4) parse it using GROBID.
+Once you have defined your research question along with the input parameters, scholar2sql will loop over them and for each will find the most relevant articles try to download its content ([figure 2](#1--extraction-of-features-with-citationssources)) extract the features ([figure 3](#2--all-open-access-articles)) and fill the sql table.
 </figcaption>
 </figure>
 </details>
